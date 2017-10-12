@@ -6,7 +6,7 @@
 
 	<h1> Edit Game: </h1>
 
-	<form method="post" action="/editGame/<%= game._id %>" enctype = "multipart/form-data">
+	<form method="post" action="/editGame/<%= game._id %>" enctype="multipart/form-data">
 
 		<label>Enter Your Game Title</label><br>
 		<input type="text" name="gameTitle" value="<%= game.gameTitle %>" required>
@@ -22,7 +22,7 @@
 		<br><br>
 
 		 	<label>Change Image</label><br><img src="../uploads/<%= game.gameImage %>" alt="" style="width:20px;height:20px;">
-			<input type="file" name="gameImage" value="<%= game.gameImage %>" multiple>
+			<input type="file" name="gameImage" value="<%= game.gameImage %>">
 		<br><br>
 
 		<input type="submit" value="Submit">
@@ -33,3 +33,4 @@
 	</form>
 
 	</center>
+

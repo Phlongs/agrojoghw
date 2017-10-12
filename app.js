@@ -134,20 +134,32 @@ app.get('/publisherList', function(req, res){
 app.get('/editGame/:id', function(req, res){
 	console.log(req.params.id)
 	GameInfo.findById(req.params.id, function(err, game){
+		if(err){
+			console.log(err);
+		} 
 		Publisher.find({}, function(err,data){
 			res.render('editGame', {
 			game: game,
 			publishers: data
-			})
-		})	
+			});
+		});	
 	});
 });
 
 app.post('/editGame/:id', upload.single('gameImage'), function(req, res){
+
 	let game = {};
 	game.gameTitle = req.body.gameTitle;
 	game.gamePublisher = req.body.gamePublisher;
-	game.gameImage = req.file.filename;
+	// game.gameImage = req.file.filename;
+	// game.gameImage = req.body.gameImage;
+	let file = JSON.stringify(req.file)
+
+	if(file===undefined){
+		console.log('no file submitted')
+	} else {
+		game.gameImage = req.file.filename;
+	}
 
 	let id = {_id:req.params.id}
 
