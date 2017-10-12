@@ -1,0 +1,20 @@
+<% include index %> 
+	<center>
+	<br>
+	<br>
+	<br>
+
+
+	<h1>Edit Publisher</h1>
+	<form method="post" action="/editPublisher/<%= publisher._id %>">
+		<label>Enter Your New Game Publisher</label><br>
+		<input type="text" name="publisher" value="<%= publisher.publisher %>" required>
+		<input type="submit" value="Edit Publisher">
+	</form>
+
+	<form method="delete" action="/delete/<%= publisher._id %>">
+	<input type="submit" value="Delete">
+	</form>
+	<br>
+
+	</center>

@@ -1,0 +1,19 @@
+<% include index %> 
+	<center>
+	<br>
+	<br>
+	<br>
+	<h1> Game List </h2>
+
+			
+	<% datas.forEach(function(data) { %>
+			
+		<a href="/editGame/<%= data._id %>">
+			Title: <%= data.gameTitle %>
+			Publisher: <%= data.gamePublisher %>
+			Image: <img src="uploads/<%= data.gameImage %>" alt="" style="width:20px;height:20px;"> 
+
+			<br>
+		<% }); %> 
+			
+	</center>

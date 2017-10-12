@@ -1,0 +1,14 @@
+<% include index %> 
+	<center>
+	<br>
+	<br>
+	<br>
+
+	<h1> Publisher List </h2>
+
+		<% publishers.forEach(function(publisher) { %>
+
+			<a href="/editPublisher/<%= publisher._id %>">
+			<%= publisher.publisher %><br>
+			<% }); %> 
+	</center>

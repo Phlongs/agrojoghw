@@ -1,0 +1,35 @@
+<% include index %> 
+	<center>
+	<br>
+	<br>
+	<br>
+
+	<h1> Edit Game: </h1>
+
+	<form method="post" action="/editGame/<%= game._id %>" enctype = "multipart/form-data">
+
+		<label>Enter Your Game Title</label><br>
+		<input type="text" name="gameTitle" value="<%= game.gameTitle %>" required>
+		<br><br>
+
+		<label>Select Publisher</label><br>
+		<select name="gamePublisher">
+		 	<option value="<%= game.gamePublisher %>"><%= game.gamePublisher %></option>
+			<% publishers.forEach(function(publisher) { %>
+			<option value="<%= publisher.publisher %>"><%= publisher.publisher %></option>
+			<% }); %>
+		</select>
+		<br><br>
+
+		 	<label>Change Image</label><br><img src="../uploads/<%= game.gameImage %>" alt="" style="width:20px;height:20px;">
+			<input type="file" name="gameImage" value="<%= game.gameImage %>" multiple>
+		<br><br>
+
+		<input type="submit" value="Submit">
+	</form>
+
+	<form method="delete" action="/deleteGame/<%= game._id %>">
+	<input type="submit" value="Delete">
+	</form>
+
+	</center>
