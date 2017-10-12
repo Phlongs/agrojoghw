@@ -8,13 +8,14 @@
 
 	<form method="post" action="/editGame/<%= game._id %>" enctype="multipart/form-data">
 
-		<label>Enter Your Game Title</label><br>
+		<label>Edit Your Game Title</label><br>
 		<input type="text" name="gameTitle" value="<%= game.gameTitle %>" required>
 		<br><br>
 
-		<label>Select Publisher</label><br>
+		<label>Edit Publisher</label><br>
+		<%= game.gamePublisher %>
 		<select name="gamePublisher">
-		 	<option value="<%= game.gamePublisher %>"><%= game.gamePublisher %></option>
+		 	<option value="<%= game.gamePublisher %>" >Select</option>
 			<% publishers.forEach(function(publisher) { %>
 			<option value="<%= publisher.publisher %>"><%= publisher.publisher %></option>
 			<% }); %>
