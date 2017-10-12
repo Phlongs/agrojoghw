@@ -1,5 +1,4 @@
 var express = require("express");
-var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
 var mongoose = require("mongoose");
 var path = require('path');
@@ -25,7 +24,16 @@ app.use(bodyParser.json({type:'application/vnd.api+json'}));
 // Set Static Path
 app.use(express.static(process.cwd() + "/public"));
 
-mongoose.Promise = global.Promise;mongoose.connect("mongodb://localhost:27017/gameDatabase");
+// Setting up links for mongo
+var mlab = 'mongodb://heroku_5h6mt273:7i4si4eaccbelkn1rcblq63u7r@ds045618.mlab.com:45618/heroku_5h6mt273';
+var local = 'mongodb://localhost:27017/gameDatabase';
+
+// Connect to localhost if not a production environment
+if(process.env.NODE_ENV == 'production'){
+  mongoose.connect(mlab);
+} else {
+  mongoose.connect(local);
+}
  
 var db = mongoose.connection;
 
