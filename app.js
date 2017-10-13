@@ -174,9 +174,12 @@ app.post('/editGame/:id', upload.single('gameImage'), function(req, res){
 	})
 });
 
+var oldPublisher ={};
+
 app.get('/editPublisher/:id', function(req, res){
 
 	Publisher.findById(req.params.id, function(err, data){
+		oldPublisher.publisher = data;
 		res.render('editPublisher', {
 			publisher: data
 		})
@@ -184,6 +187,7 @@ app.get('/editPublisher/:id', function(req, res){
 })
 
 app.post('/editPublisher/:id', function(req, res){
+	
 	let publisher = {};
 	publisher.publisher = req.body.publisher;
 	let id = {_id:req.params.id};
@@ -193,6 +197,16 @@ app.post('/editPublisher/:id', function(req, res){
 			console.log(err);
 			return;
 		} else {
+			let gamePublisher = {};
+			gamePublisher.gamePublisher = publisher.publisher;
+			GameInfo.update({gamePublisher:oldPublisher.publisher.publisher}, gamePublisher, {multi: true}, function(err){
+				if(err){
+					console.log(err);
+					return;
+				} else {
+					console.log('updated gamePublisher');
+				}
+			})
 			console.log('updated');
 			res.redirect('/publisherList');
 		}
