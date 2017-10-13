@@ -13,8 +13,8 @@
 		<br><br>
 
 		<label>Edit Publisher (<%= game.gamePublisher %>)</label><br>
-		<select name="gamePublisher")
-		 	<option value="<%= game.gamePublisher %>" >Select</option>
+		<select name="gamePublisher">
+			<option value="">Select</option>
 			<% publishers.forEach(function(publisher) { %>
 			<option value="<%= publisher.publisher %>"><%= publisher.publisher %></option>
 			<% }); %>
