@@ -9,7 +9,7 @@
 	<form method="post" action="/editGame/<%= game._id %>" enctype="multipart/form-data">
 
 		<label>Edit Your Game Title (<%= game.gameTitle %>)</label><br>
-		<input type="text" name="gameTitle" value="<%= game.gameTitle %>" placeholder=""required>
+		<input type="text" name="gameTitle" value="" placeholder=""required>
 		<br><br>
 
 		<label>Edit Publisher (<%= game.gamePublisher %>)</label><br>
@@ -21,7 +21,7 @@
 		</select>
 		<br><br>
 
-		 	<label>Change Image</label><br><img src="../uploads/<%= game.gameImage %>" alt="" style="width:20px;height:20px;">
+		 	<label>Change Image (<img src="../uploads/<%= game.gameImage %>" alt="" style="width:20px;height:20px;">)</label><br>
 			<input type="file" name="gameImage" value="<%= game.gameImage %>">
 		<br><br>
 
