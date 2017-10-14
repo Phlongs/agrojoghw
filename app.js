@@ -64,7 +64,7 @@ app.get("/", (req, res) => {
 		if(err) {
 			console.log(err)
 		} else {
-			console.log(data[0].gamePublisher[0].publisher)
+			
 			res.render('gameList', {
 				datas: data
 			})		
