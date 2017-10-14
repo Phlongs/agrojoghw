@@ -1,3 +1,4 @@
+
 <% include index %> 
 	<center>
 	<br>
@@ -16,7 +17,7 @@
 		<select name="gamePublisher">
 			<option value="">Select</option>
 			<% publishers.forEach(function(publisher) { %>
-			<option value="<%= publisher._id %>"><%= publisher.publisher %></option>
+			<option value="<%= publisher._id %>" selected><%= publisher.publisher %></option>
 			<% }); %>
 		</select>
 		<br><br>
@@ -32,4 +33,5 @@
 	<input type="submit" value="Delete">
 	</form>
 	</center>
+
 
