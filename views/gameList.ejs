@@ -10,7 +10,7 @@
 			
 		<a href="/editGame/<%= data._id %>">
 			Title: <%= data.gameTitle %>
-			Publisher: <%= data.gamePublisher %>
+			Publisher: <%= data.gamePublisher[0].publisher %>
 			Image: <img src="uploads/<%= data.gameImage %>" alt="" style="width:20px;height:20px;"> 
 
 			<br>

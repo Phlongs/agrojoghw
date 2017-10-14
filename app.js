@@ -60,15 +60,17 @@ var upload = multer({ storage: storage });
 
 // Routes
 app.get("/", (req, res) => {
-	GameInfo.find({}, function(err,data){
-		if(err){
-			console.log(err);
+	GameInfo.find().populate('gamePublisher').populate('gamePublisher.publisher').exec(function(err, data){
+		if(err) {
+			console.log(err)
 		} else {
+			console.log(data[0].gamePublisher[0].publisher)
 			res.render('gameList', {
 				datas: data
-			})
+			})		
 		}
-	})
+
+	});
 });
 
 
@@ -85,20 +87,23 @@ app.post('/addPublisher', function(req, res){
 });
 
 app.post('/addInfo', upload.single('gameImage'), function(req, res){
-	console.log(req.file)
+	console.log(req.body)
+
 	var myGameInfo = {};	
 	myGameInfo = new GameInfo(req.body);
 	myGameInfo.gameImage = req.file.filename;	
 
-	myGameInfo.save()
-	.then(item => {
-	console.log("saved");
-	})
-	.catch(err => {
-	res.status(400).send("unable to save to database");
-	});
-	res.redirect('/');
-})
+	myGameInfo.save(function(err){
+		if(err){
+			console.log(err)
+		}
+			console.log("saved")
+		})
+		res.redirect('/');
+});
+
+	
+
 
 app.get('/addGame', function(req, res){
 	Publisher.find({}, function(err,data){
@@ -118,7 +123,7 @@ app.get('/addPublisher', function(req, res){
 });
 
 app.get('/publisherList', function(req, res){
-	Publisher.find({}, function(err,data){
+	Publisher.find().populate().exec(function(err, data) {
 		if(err){
 			console.log(err);
 		} else {
@@ -128,22 +133,47 @@ app.get('/publisherList', function(req, res){
 			})
 		}
 	});
-
 });
 
 app.get('/editGame/:id', function(req, res){
 	console.log(req.params.id)
-	GameInfo.findById(req.params.id, function(err, game){
-		if(err){
-			console.log(err);
-		} 
-		Publisher.find({}, function(err,data){
+
+	GameInfo.findById(req.params.id)
+	.populate('gamePublisher')
+	.populate('gamePublisher.publisher')
+	.exec(function(err, game){
+		if(err) {
+			console.log(err)
+		} else {
+			Publisher.find({}, function(err,data){
+				console.log('get',game.gamePublisher[0]._id)
 			res.render('editGame', {
-			game: game,
-			publishers: data
-			});
-		});	
+				games: game,
+				publishers: data
+			})
+			});		
+		}
+
 	});
+
+
+
+
+
+
+
+
+	// , function(err, game){
+	// 	if(err){
+	// 		console.log(err);
+	// 	} 
+	// 	Publisher.find({}, function(err,data){
+	// 		res.render('editGame', {
+	// 		game: game,
+	// 		publishers: data
+	// 		});
+	// 	});	
+	// });
 });
 
 app.post('/editGame/:id', upload.single('gameImage'), function(req, res){
@@ -151,6 +181,7 @@ app.post('/editGame/:id', upload.single('gameImage'), function(req, res){
 	let game = {};
 	game.gameTitle = req.body.gameTitle;
 	game.gamePublisher = req.body.gamePublisher;
+	console.log('post: ',req.body);
 	// game.gameImage = req.file.filename;
 	// game.gameImage = req.body.gameImage;
 	let file = JSON.stringify(req.file)
@@ -174,12 +205,9 @@ app.post('/editGame/:id', upload.single('gameImage'), function(req, res){
 	})
 });
 
-var oldPublisher ={};
 
 app.get('/editPublisher/:id', function(req, res){
-
 	Publisher.findById(req.params.id, function(err, data){
-		oldPublisher.publisher = data;
 		res.render('editPublisher', {
 			publisher: data
 		})
@@ -197,16 +225,7 @@ app.post('/editPublisher/:id', function(req, res){
 			console.log(err);
 			return;
 		} else {
-			let gamePublisher = {};
-			gamePublisher.gamePublisher = publisher.publisher;
-			GameInfo.update({gamePublisher:oldPublisher.publisher.publisher}, gamePublisher, {multi: true}, function(err){
-				if(err){
-					console.log(err);
-					return;
-				} else {
-					console.log('updated gamePublisher');
-				}
-			})
+			var game = new 
 			console.log('updated');
 			res.redirect('/publisherList');
 		}
