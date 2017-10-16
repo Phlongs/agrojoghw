@@ -139,7 +139,6 @@ app.get('/publisherList', function(req, res){
 
 app.get('/editGame/:id', function(req, res){
 	console.log(req.params.id)
-
 	GameInfo.findById(req.params.id)
 	.populate('gamePublisher')
 	.populate('gamePublisher.publisher')
