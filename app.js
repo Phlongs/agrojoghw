@@ -60,17 +60,19 @@ var upload = multer({ storage: storage });
 
 // Routes
 app.get("/", (req, res) => {
-	GameInfo.find().populate('gamePublisher').populate('gamePublisher.publisher').exec(function(err, data){
-		if(err) {
-			console.log(err)
-		} else {
-			
-			res.render('gameList', {
-				datas: data
-			})		
-		}
 
-	});
+	res.send('test');
+	// GameInfo.find().populate('gamePublisher').populate('gamePublisher.publisher').exec(function(err, data){
+	// 	if(err) {
+	// 		console.log(err)
+	// 	} else {
+			
+	// 		res.render('gameList', {
+	// 			datas: data
+	// 		})		
+	// 	}
+
+	// });
 });
 
 
