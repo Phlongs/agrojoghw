@@ -226,7 +226,7 @@ app.post('/editPublisher/:id', function(req, res){
 			console.log(err);
 			return;
 		} else {
-			var game = new 
+			
 			console.log('updated');
 			res.redirect('/publisherList');
 		}
