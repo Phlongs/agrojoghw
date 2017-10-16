@@ -13,11 +13,16 @@
 		<input type="text" name="gameTitle" value="<%= games.gameTitle %>" placeholder=""required>
 		<br><br>
 
-		<label>Edit Publisher (<%= games.gamePublisher[0].publisher %>)</label><br>
+		<label>Edit Publisher </label><br>
 		<select name="gamePublisher">
-			<option value="<%= games.gamePublisher[0]._id %>" >Select</option>
+
 			<% publishers.forEach(function(publisher) { %>
-			<option value="<%= publisher._id %>" ><%= publisher.publisher %></option>
+			<option value="<%= publisher._id %>" <% 
+			if(games.gamePublisher[0].publisher === publisher.publisher){ 
+			%> selected <%
+			}%>>
+
+			<%= publisher.publisher %></option>
 			<% }); %>
 		</select>
 		<br><br>
