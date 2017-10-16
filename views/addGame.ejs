@@ -12,15 +12,15 @@
 		<br><br>
 		<label>Select Publisher</label><br>
 		<select name="gamePublisher">
-			<option value="">Select</option>
+			<option value="" selected>Select</option>
 			<% publishers.forEach(function(publisher) { %>
-			<option value="<%= publisher._id %>" ><%= publisher.publisher %></option>
+			<option value="<%= publisher._id %>" required><%= publisher.publisher %></option>
 			<% }); %>
 		</select>
 		<br><br>
 
 		<label>Select Image</label><br>
-		<input type="file" name="gameImage" multiple>
+		<input type="file" name="gameImage" multiple required>
 		
 		<br><br>
 
